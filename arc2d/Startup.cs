@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -58,7 +59,18 @@ namespace arc2d
 			});
 
 			//app.UseDefaultFiles();
-			app.UseStaticFiles();
+			//app.UseStaticFiles();
+
+
+			var provider = new FileExtensionContentTypeProvider();
+			provider.Mappings[".html"] = "text/html";
+			provider.Mappings[".webmanifest"] = "application/manifest+json";
+
+			app.UseStaticFiles(new StaticFileOptions()
+			{
+				ContentTypeProvider = provider
+			});
+
 
 			app.UseRouting();
 			//app.UseMvc();
