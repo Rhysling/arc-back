@@ -10,27 +10,29 @@ namespace arc2d.Mailer
 {
 	public class MailgunTarget
 	{
-		private HttpClient client;
+		private readonly HttpClient client;
 		private const string baseAddress = "https://api.mailgun.net/v3/{0}/messages";
-		private string fromAddress;
-		private string toAddresses;
-		private bool isProduction;
+		private readonly string fromAddress;
+		private readonly string toAddresses;
+		//private bool isProduction;
 
 		public MailgunTarget(
 			string domain,
 			string authValue,
 			string fromAddress,
-			string toAddresses, // ',' delimited
-			bool isProduction = true
+			string toAddresses // ',' delimited
+			//bool isProduction = true
 		)
 		{
-			client = new HttpClient();
-			client.BaseAddress = new Uri(String.Format(baseAddress, domain));
+			client = new HttpClient
+			{
+				BaseAddress = new Uri(String.Format(baseAddress, domain))
+			};
 			client.DefaultRequestHeaders.Add("Authorization", authValue);
 
 			this.fromAddress = fromAddress;
 			this.toAddresses = toAddresses;
-			this.isProduction = isProduction;
+			//this.isProduction = isProduction;
 		}
 
 		public async Task<HttpResponseMessage> SendAsync(ContactMessage item)
@@ -48,8 +50,7 @@ namespace arc2d.Mailer
 
 			var encodedContent = new FormUrlEncodedContent(parameters);
 
-			HttpResponseMessage res;
-			using (res = await client.PostAsync("", encodedContent).ConfigureAwait(false));
+			HttpResponseMessage res = await client.PostAsync("", encodedContent).ConfigureAwait(false);
 
 			return res;
 		}
