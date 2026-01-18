@@ -25,8 +25,7 @@ namespace arc2d.Runner
 				AppSettings.MailgunFromDomain,
 				AppSettings.MailgunAuthValue,
 				"noreply@american-research-capital.net",
-				"rpkummer@hotmail.com,rkummer@polson.com",
-				false
+				"rpkummer@hotmail.com,rkummer@polson.com"
 			);
 
 

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using arc2d.Mailer;
+﻿using arc2d.Mailer;
 using arc2d.Models;
 using arc2d.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace arc2d.Controllers
 {
@@ -27,8 +23,7 @@ namespace arc2d.Controllers
 				AppSettings.MailgunFromDomain,
 				AppSettings.MailgunAuthValue,
 				"noreply@american-research-capital.net",
-				tos,
-				AppSettings.IsProduction
+				tos
 			);
 
 			var res = await mt.SendAsync(msg);
